@@ -17,4 +17,4 @@
 - Fontawsome for some icons
 
 ## Live Demo
-[demo](www.dominikhaid.de/app/bingo)
+[DEMO](https://www.dominikhaid.de/app/bingo)
