@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './App.css';
+import Game from './components/Game';
 import reportWebVitals from './reportWebVitals';
+import { AppProvider, AppContext } from './components/AppState';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <React.Fragment>
+    <AppProvider>
+      <AppContext.Consumer>
+        {(appState) => {
+          return <Game {...appState} />;
+        }}
+      </AppContext.Consumer>
+    </AppProvider>
+  </React.Fragment>,
   document.getElementById('root')
 );
 

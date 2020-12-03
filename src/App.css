@@ -1,3 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Nerko+One&display=swap');
+@import 'fontawesome/css/solid.min.css';
+
+body {
+  font-size: 20px;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Gochi Hand', cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root {
+  --size-large: 800px;
+  --size-medium: 650px;
+  --size-small: 350px;
+  --player-color-0: 0, 255, 0;
+  --bingo-color-player: 255, 0, 255;
+  --bingo-color: 255, 255, 0;
+  --bingo-joker: 255, 0, 255;
+  --background--opacity: 0.5;
+  --background--opacity-light: 0.1;
+  --background--opacity-mid: 0.3;
+  --inner-shadow: 0 0 20px rgba(255, 255, 255, 0.8) inset;
+  --inner-shadow-big: 0 0 50px rgba(182, 182, 182, 0.8) inset;
+  --inner-shadow-big-out: 0 0 100px rgba(182, 182, 182, 0.8);
+  --field-background: rgba(230, 230, 230, 0.6);
+  --icon-color: rgba(120, 120, 120, 0.8);
+}
+
+body {
+  background-color: var(--field-background);
+}
+
 .App {
   text-align: center;
 }
@@ -28,11 +66,289 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+@keyframes spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(1.1, 1.1);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+
+@keyframes bingo {
+  from {
+    transform: scale(0, 0) rotate(0deg);
+    opacity: 0;
+    top: 0;
+  }
+  to {
+    transform: scale(1, 1) rotate(360deg);
+    opacity: 1;
+    top: 20vh;
+  }
+}
+
+#root {
+  display: grid;
+  align-content: space-around;
+  height: 100vh;
+}
+
+#board {
+  width: var(--size-large);
+  margin: 0 auto;
+  border: 1px black solid;
+  padding: 0.05rem;
+  display: flex;
+  justify-content: left;
+  flex-wrap: wrap;
+  background-color: var(--field-background);
+  box-shadow: var(--inner-shadow-big);
+  box-shadow: var(--inner-shadow-big-out);
+}
+nav {
+  flex: 1 1 100%;
+  padding: 2rem;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  background-color: var(--field-background);
+  font-size: 1.5rem;
+  box-shadow: var(--inner-shadow-big);
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: right;
+  text-align: right;
+}
+
+nav > p {
+  flex: 2 2 80%;
+}
+
+nav > p:last-child {
+  flex: 1 1 50%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#turns,
+#score {
+  font-size: 2rem;
+}
+
+#score {
+  animation-name: fadeIn;
+  animation-duration: 2s;
+}
+
+#play-button {
+  text-decoration: none;
+  color: black;
+  border: 3px dashed black;
+  padding: 1rem;
+  font-weight: bold;
+  transition-property: border-color color;
+  transition-timing-function: ease-out;
+  transition-duration: 0.2s;
+}
+
+#play-button:hover {
+  text-decoration: none;
+  color: rgba(var(--player-color-0), var(--background--opacity));
+  border: 3px dashed rgba(var(--player-color-0), var(--background--opacity));
+  padding: 1rem;
+  font-weight: bold;
+}
+
+#board > div {
+  /* float: left; */
+  flex: 1 1 calc(var(--size-large) / 5);
+  border: 1px white solid;
+  box-sizing: border-box;
+  width: calc(var(--size-large) / 5);
+  height: calc(var(--size-large) / 5);
+  text-align: center;
+  vertical-align: middle;
+  transition-property: background-color;
+  transition-timing-function: ease;
+  transition-duration: 0.2s;
+  align-items: center;
+  display: flex;
+  padding: 0.5rem;
+  cursor: pointer;
+  position: relative;
+}
+
+#board > div[class*='p-0'] {
+  border: 1px rgba(var(--player-color-0)) solid;
+  background-color: rgba(var(--player-color-0), var(--background--opacity));
+  box-shadow: var(--inner-shadow);
+  animation-name: scale;
+  animation-duration: 1s;
+}
+
+#board > div[class*='p-0'].bingo {
+  border: 1px rgba(var(--bingo-color-player)) solid;
+  background-color: rgba(var(--bingo-color-player), var(--background--opacity));
+  box-shadow: var(--inner-shadow);
+  animation-name: spin;
+  animation-duration: 1s;
+}
+
+#board > div::before {
+  font-size: calc(var(--size-medium) / 7.5);
+  top: 1vw;
+}
+
+div[class*='p-0'].bingo::before {
+  content: '\f521';
+  width: 100%;
+  height: 100%;
+  font-family: 'Font Awesome 5 Free';
+  position: absolute;
+  opacity: var(--background--opacity);
+  left: 0px;
+  z-index: -1;
+  color: rgba(var(--bingo-color-player), 1);
+}
+
+#board > div.bingo {
+  border: 1px rgba(var(--bingo-color)) solid;
+  background-color: rgba(var(--bingo-color), var(--background--opacity));
+  animation-name: scale;
+  animation-duration: 1s;
+}
+
+div.bingo::before {
+  content: '\f057';
+  font-family: 'Font Awesome 5 Free';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  z-index: -1;
+  opacity: var(--background--opacity);
+  color: rgba(var(--bingo-color), 1);
+  animation-name: scale;
+  animation-duration: 1s;
+}
+
+#board > div.joker {
+  border: 1px rgba(var(--bingo-joker)) solid;
+  background-color: rgba(var(--bingo-joker), var(--background--opacity));
+  box-shadow: var(--inner-shadow);
+}
+
+.joker::before {
+  content: '\f521';
+  width: 100%;
+  font-family: 'Font Awesome 5 Free';
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  opacity: var(--background--opacity);
+  z-index: -1;
+  color: rgba(var(--bingo-joker), 1);
+  animation-name: scale;
+  animation-duration: 1s;
+}
+
+#board > div[class*='p-0'].joker {
+  border: 1px rgba(var(--bingo-color-player)) solid;
+  background-color: rgba(var(--bingo-color-player), var(--background--opacity));
+  /* box-shadow: var(--inner-shadow); */
+}
+
+#root #win {
+  position: fixed;
+  top: 20vh;
+  margin: auto;
+  border: unset;
+  text-align: center;
+  width: 100%;
+  box-shadow: unset;
+  left: 0;
+  font-size: 10rem;
+  color: rgba(var(--bingo-joker), 1);
+  animation-name: bingo;
+  animation-duration: 1s;
+}
+
+#root #win p {
+  width: 100%;
+  text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+  body {
+    font-size: 16px;
+  }
+
+  #board > div::before {
+    font-size: calc(var(--size-medium) / 7.5);
+  }
+  #board {
+    width: var(--size-medium);
+  }
+
+  #board > div {
+    flex: 1 1 calc(var(--size-medium) / 5);
+    width: calc(var(--size-medium) / 5);
+    height: calc(var(--size-medium) / 5);
+  }
+}
+
+@media (max-width: 765px) {
+  body {
+    font-size: 10px;
+    line-height: 11px;
+  }
+  #root nav {
+    max-width: 100vw;
+    overflow: hidden;
+  }
+  #root #turns,
+  #root #score {
+    font-size: 1rem;
+  }
+
+  #board > div::before {
+    font-size: calc(var(--size-small) / 7.5);
+    top: 30px;
+  }
+  #board {
+    width: var(--size-small);
+  }
+
+  #board > div {
+    flex: 1 1 calc(var(--size-small) / 5);
+    width: calc(var(--size-small) / 5);
+    height: calc(var(--size-small) / 5);
+  }
+
+  #play-button {
+    font-size: 1rem;
+    color: black;
+    border: 2px dashed black;
+    padding: 0.5rem;
+  }
+
+  #root #win {
+    font-size: 3rem;
   }
 }
