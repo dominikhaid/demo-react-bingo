@@ -4,10 +4,10 @@
 - The game creates always 2 possible bingos
 - Select ten excuses
 - Each round on bingo slot will be reveald
-- You win by having five having five selected bingo cards in a row
+- You win by having five selected bingo cards in a row
 
 ## TECHNICAL OVERVIEW
-- Create with creat-react-app @react17
+- Created with creat-react-app @react17
 - App State is handeled in the AppState.jsx
 - Game logic is located in the Games.jsx
 - Styling belongs to the App.css
