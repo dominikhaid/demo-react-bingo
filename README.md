@@ -1,4 +1,4 @@
-# BINGO GAME OF SELF EXCUSES
+# BINGO GAME OF SELF-EXCUSES
 
 ## HOW TO PLAY
 - The game creates always 2 possible bingos
