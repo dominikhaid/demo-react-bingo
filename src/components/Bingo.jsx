@@ -10,7 +10,7 @@ const Bingo = ({ bingo, setState }) => {
   return (
     <>
       <div id='win'>
-        <p>BINGO!!!</p>
+        <p>BINGO</p>
       </div>
     </>
   );

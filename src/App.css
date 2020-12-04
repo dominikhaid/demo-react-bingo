@@ -1,14 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Nerko+One&display=swap');
 @import 'fontawesome/css/solid.min.css';
 
-body {
-  font-size: 20px;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Gochi Hand', cursive;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -18,52 +10,32 @@ code {
   --size-large: 800px;
   --size-medium: 650px;
   --size-small: 350px;
-  --player-color-0: 0, 255, 0;
-  --bingo-color-player: 255, 0, 255;
-  --bingo-color: 255, 255, 0;
-  --bingo-joker: 255, 0, 255;
-  --background--opacity: 0.5;
-  --background--opacity-light: 0.1;
-  --background--opacity-mid: 0.3;
-  --inner-shadow: 0 0 20px rgba(255, 255, 255, 0.8) inset;
-  --inner-shadow-big: 0 0 50px rgba(182, 182, 182, 0.8) inset;
-  --inner-shadow-big-out: 0 0 100px rgba(182, 182, 182, 0.8);
-  --field-background: rgba(230, 230, 230, 0.6);
-  --icon-color: rgba(120, 120, 120, 0.8);
+
+  --primary: 217, 196, 169;
+  --secondary: 49, 101, 245;
+  --neutral: 49, 101, 245;
+
+  --player-color-0: 49, 101, 245;
+  --bingo-color: 33, 222, 89;
+  --joker-color: 222, 33, 165;
+
+  --opacity: 0.5;
+  --opacity-light: 0.1;
+  --opacity-mid: 0.3;
+
+  --box-shadow: 0 0 20px;
+  --box-shadow-mid: 0 0 50px;
+  --box-shadow-big: 0 0 100px;
 }
 
 body {
-  background-color: var(--field-background);
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
+  font-size: 20px;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Gochi Hand', cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: rgba(var(--secondary));
+  background-color: rgba(var(--primary), 0.4);
 }
 
 @keyframes spin {
@@ -100,29 +72,29 @@ body {
 #root {
   display: grid;
   align-content: space-around;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #board {
   width: var(--size-large);
   margin: 0 auto;
-  border: 1px black solid;
+  border: 1px rgba(var(--primary), 1) solid;
   padding: 0.05rem;
   display: flex;
   justify-content: left;
   flex-wrap: wrap;
-  background-color: var(--field-background);
-  box-shadow: var(--inner-shadow-big);
-  box-shadow: var(--inner-shadow-big-out);
+  background-color: rgba(var(--primary), 0.2);
+  box-shadow: var(--box-shadow-big) rgba(var(--primary), var(--opacity));
 }
+
 nav {
   flex: 1 1 100%;
   padding: 2rem;
   padding-top: 4rem;
   padding-bottom: 3rem;
-  background-color: var(--field-background);
+  background-color: rgba(var(--primary), var(--opacity-light));
   font-size: 1.5rem;
-  box-shadow: var(--inner-shadow-big);
+  box-shadow: var(--box-shadow-big) rgba(var(--primary), var(--opacity)) inset;
   flex-wrap: wrap;
   display: flex;
   justify-content: right;
@@ -158,8 +130,8 @@ nav > p:last-child {
 
 #play-button {
   text-decoration: none;
-  color: black;
-  border: 3px dashed black;
+  color: rgba(var(--secondary));
+  border: 3px dashed rgba(var(--secondary));
   padding: 1rem;
   font-weight: bold;
   transition-property: border-color color;
@@ -178,7 +150,7 @@ nav > p:last-child {
 #board > div {
   /* float: left; */
   flex: 1 1 calc(var(--size-large) / 5);
-  border: 1px white solid;
+  border: 1px transparent solid;
   box-sizing: border-box;
   width: calc(var(--size-large) / 5);
   height: calc(var(--size-large) / 5);
@@ -196,16 +168,20 @@ nav > p:last-child {
 
 #board > div[class*='p-0'] {
   border: 1px rgba(var(--player-color-0)) solid;
-  background-color: rgba(var(--player-color-0), var(--background--opacity));
-  box-shadow: var(--inner-shadow);
+  background-color: rgba(var(--player-color-0), var(--opacity-mid));
+  box-shadow: var(--box-shadow-mid)
+    rgba(var(--player-color-0), var(--opacity-mid)) inset;
+  color: rgba(var(--secondary), 1);
   animation-name: scale;
   animation-duration: 1s;
 }
 
 #board > div[class*='p-0'].bingo {
-  border: 1px rgba(var(--bingo-color-player)) solid;
-  background-color: rgba(var(--bingo-color-player), var(--background--opacity));
-  box-shadow: var(--inner-shadow);
+  border: 1px rgba(var(--joker-color)) solid;
+  background-color: rgba(var(--joker-color), var(--opacity-mid));
+  box-shadow: var(--box-shadow-mid) rgba(var(--joker-color), var(--opacity-mid))
+    inset;
+  color: rgba(var(--neutral), 1);
   animation-name: spin;
   animation-duration: 1s;
 }
@@ -215,21 +191,12 @@ nav > p:last-child {
   top: 1vw;
 }
 
-div[class*='p-0'].bingo::before {
-  content: '\f521';
-  width: 100%;
-  height: 100%;
-  font-family: 'Font Awesome 5 Free';
-  position: absolute;
-  opacity: var(--background--opacity);
-  left: 0px;
-  z-index: -1;
-  color: rgba(var(--bingo-color-player), 1);
-}
-
 #board > div.bingo {
   border: 1px rgba(var(--bingo-color)) solid;
-  background-color: rgba(var(--bingo-color), var(--background--opacity));
+  background-color: rgba(var(--bingo-color), var(--opacity-mid));
+  box-shadow: var(--box-shadow-mid) rgba(var(--bingo-color), var(--opacity-mid))
+    inset;
+  color: rgba(var(--neutral), 1);
   animation-name: scale;
   animation-duration: 1s;
 }
@@ -242,18 +209,21 @@ div.bingo::before {
   position: absolute;
   left: 0px;
   z-index: -1;
-  opacity: var(--background--opacity);
-  color: rgba(var(--bingo-color), 1);
+  opacity: var(--opacity-light);
+  color: rgba(var(--bingo-color), var(--opacity-light));
+}
+
+#board > div.joker {
+  border: 1px rgba(var(--joker-color)) solid;
+  background-color: rgba(var(--joker-color), var(--opacity-mid));
+  box-shadow: var(--box-shadow-mid) rgba(var(--joker-color), var(--opacity-mid))
+    inset;
+  color: rgba(var(--neutral), 1);
   animation-name: scale;
   animation-duration: 1s;
 }
 
-#board > div.joker {
-  border: 1px rgba(var(--bingo-joker)) solid;
-  background-color: rgba(var(--bingo-joker), var(--background--opacity));
-  box-shadow: var(--inner-shadow);
-}
-
+div[class*='p-0'].bingo::before,
 .joker::before {
   content: '\f521';
   width: 100%;
@@ -261,17 +231,14 @@ div.bingo::before {
   height: 100%;
   position: absolute;
   left: 0px;
-  opacity: var(--background--opacity);
   z-index: -1;
-  color: rgba(var(--bingo-joker), 1);
-  animation-name: scale;
-  animation-duration: 1s;
+  opacity: var(--opacity-light);
+  color: rgba(var(--bingo-joker), var(--opacity-light));
 }
 
 #board > div[class*='p-0'].joker {
-  border: 1px rgba(var(--bingo-color-player)) solid;
-  background-color: rgba(var(--bingo-color-player), var(--background--opacity));
-  /* box-shadow: var(--inner-shadow); */
+  border: 1px rgba(var(--joker-color)) solid;
+  background-color: rgba(var(--joker-color), var(--background--opacity));
 }
 
 #root #win {
@@ -286,12 +253,13 @@ div.bingo::before {
   font-size: 10rem;
   color: rgba(var(--bingo-joker), 1);
   animation-name: bingo;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 
 #root #win p {
   width: 100%;
-  text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  color: rgba(var(--joker-color));
+  text-shadow: var(--box-shadow) rgb(var(--joker-color));
 }
 
 @media (max-width: 1024px) {
@@ -343,8 +311,6 @@ div.bingo::before {
 
   #play-button {
     font-size: 1rem;
-    color: black;
-    border: 2px dashed black;
     padding: 0.5rem;
   }
 
